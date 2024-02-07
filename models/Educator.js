@@ -2,7 +2,9 @@ import mongoose from "mongoose";
 
 const educatorSchema = mongoose.Schema({
   username: String,
-  name: String,
+
+  firstName: String,
+  lastName: String,
   passwordHash: String,
 });
 

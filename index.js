@@ -1,7 +1,7 @@
 import app from "./app.js";
 import config from "./utils/config.js";
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.send("rpms server");
 });
 

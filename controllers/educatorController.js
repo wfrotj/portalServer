@@ -9,17 +9,28 @@ async function getTeacher(_req, res) {
 }
 
 async function createTeacher(req, res) {
-  const { username, name, password } = req.body;
+  const { username, firstName, lastName, password } = req.body;
 
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
   const teacher = new Educator({
     username,
-    name,
-    passwordHash,
-  });
 
+    passwordHash,
+    firstName,
+    lastName,
+  });
+  if (!firstName || !lastName || !username || !password) {
+    return res.status(400).json({ error: "Content is missing" });
+  }
+  const teacherExists = await Educator.findOne({
+    firstName,
+    lastName,
+  });
+  if (teacherExists) {
+    return res.status(400).json({ error: "username or name is already used." });
+  }
   const savedTeacher = await teacher.save();
 
   return res.status(201).json(savedTeacher);
