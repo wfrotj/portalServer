@@ -1,7 +1,6 @@
-import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import getTokenFrom from "../utils/getTokenFrom.js";
-import Teacher from "../models/Teacher.js";
+import Educator from "../models/Educator.js";
 
 function verifyToken(req, secretKey) {
   const token = jwt.verify(getTokenFrom(req), secretKey);
@@ -14,11 +13,11 @@ function verifyToken(req, secretKey) {
 }
 
 async function getTeacher(id) {
-  return await Teacher.findById(id);
+  return await Educator.findById(id);
 }
 
 async function saveStudent(studentId, teacher) {
-  teacher.stduents.push(studentId);
+  teacher.students.push(studentId);
   await teacher.save();
 }
 

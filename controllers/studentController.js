@@ -9,6 +9,8 @@ import config from "../utils/config.js";
 // import personService from "../services/personService.js";
 
 import Student from "../models/Student.js";
+import teacherService from "../services/teacherService.js";
+import studentService from "../services/studentService.js";
 
 async function getStudents(req, res) {
   const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET);
@@ -45,7 +47,7 @@ async function createStudent(req, res, next) {
     //     if (numberExists) {
     //       return res.status(400).json({ error: "Contact number already exists" });
     //     }
-    const savedStudent = await personService.createPerson({
+    const savedStudent = await studentService.createStudent({
       firstName,
       lastName,
       teacher: teacher._id,

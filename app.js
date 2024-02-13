@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/api/teacher", educatorRouter);
 app.use("/api/login", loginRouter);
-app.use("/api/persons", studentRouter); /*upload.single("image"),*/
+app.use("/api/student", studentRouter); /*upload.single("image"),*/
 app.use(unknownEndpoint);
 app.use(errorHandler);
 
