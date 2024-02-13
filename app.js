@@ -4,6 +4,9 @@ import mongoose from "mongoose";
 import educatorRouter from "./routes/educatorRouter.js";
 import config from "./utils/config.js";
 import loginRouter from "./routes/loginRouter.js";
+import studentRouter from "./routes/studentRouter.js";
+import errorHandler from "./middlewares/errroHandler.js";
+import unknownEndpoint from "./middlewares/unknownEndpoint.js";
 
 const app = express();
 
@@ -18,5 +21,8 @@ app.use(express.json());
 app.use(cors());
 app.use("/api/teacher", educatorRouter);
 app.use("/api/login", loginRouter);
+app.use("/api/student", studentRouter); /*upload.single("image"),*/
+app.use(unknownEndpoint);
+app.use(errorHandler);
 
 export default app;
