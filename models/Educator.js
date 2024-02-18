@@ -6,6 +6,12 @@ const educatorSchema = mongoose.Schema({
   firstName: String,
   lastName: String,
   passwordHash: String,
+  students: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+    },
+  ],
 });
 
 educatorSchema.set("toJSON", {

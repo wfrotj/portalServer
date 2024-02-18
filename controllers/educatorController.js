@@ -3,8 +3,7 @@ import bcrypt from "bcrypt";
 import Educator from "../models/Educator.js";
 
 async function getTeacher(_req, res) {
-  const teacher = await Educator.find({});
-
+  const teacher = await Educator.find({}).populate("students");
   return res.status(200).json(teacher);
 }
 
