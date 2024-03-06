@@ -7,6 +7,7 @@ import loginRouter from "./routes/loginRouter.js";
 import studentRouter from "./routes/studentRouter.js";
 import errorHandler from "./middlewares/errroHandler.js";
 import unknownEndpoint from "./middlewares/unknownEndpoint.js";
+import upload from "./utils/multer.js";
 
 const app = express();
 
@@ -21,7 +22,8 @@ app.use(express.json());
 app.use(cors());
 app.use("/api/teacher", educatorRouter);
 app.use("/api/login", loginRouter);
-app.use("/api/student", studentRouter); /*upload.single("image"),*/
+
+app.use("/api/student", upload.single("image"), studentRouter);
 app.use(unknownEndpoint);
 app.use(errorHandler);
 

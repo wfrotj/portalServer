@@ -54,11 +54,11 @@ async function createStudent(req, res, next) {
     //1. get the needed data
     const { firstName, lastName } = req.body;
     //2. we decode the token
-    const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET, {
-      expiresIn: 60,
-    });
+    const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET, {});
     //3. we check if the token is valid
     const teacher = await Educator.findById(decodedToken.id);
+    const photoInfo = await uploadFile(req.file);
+
     //4. we convert the date
     // const currentDate = new Date();
     // const dateVisited = currentDate.toISOString().split("T")[0];
@@ -69,6 +69,7 @@ async function createStudent(req, res, next) {
       lastName,
 
       teacher: teacher._id,
+      photoInfo,
     });
     //6. we handle missing data
     if (!firstName || !lastName) {

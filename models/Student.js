@@ -4,6 +4,11 @@ const studentSchema = mongoose.Schema({
   firstName: String,
   lastName: String,
   //   middleInitial: String,
+  user: String,
+  photoInfo: {
+    url: String,
+    filename: String,
+  },
 });
 
 studentSchema.set("toJSON", {
