@@ -6,11 +6,13 @@ import getTokenFrom from "../utils/getTokenFrom.js";
 import jwt from "jsonwebtoken";
 import config from "../utils/config.js";
 import Student from "../models/Student.js";
+import uploadFile from "../utils/uploadFile.js";
 
 async function getStudents(req, res) {
-  const persons = await Student.find({});
+  const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET);
+  const students = await Student.find({ user: decodedToken.id });
 
-  return res.json(persons);
+  return res.json(students);
 }
 // async function getPerson(req, res, next) {
 //   try {
