@@ -10,10 +10,14 @@ import uploadFile from "../utils/uploadFile.js";
 
 async function getStudents(req, res) {
   const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET);
-  const students = await Student.find({ user: decodedToken.id });
+  const students = await Student.find([]);
 
   return res.json(students);
 }
+// async function getStudents(req, res) {
+//   const students = await Student.find({});
+//   return res.json(students);
+// }
 // async function getPerson(req, res, next) {
 //   try {
 //     const { id } = req.params;
@@ -94,6 +98,16 @@ async function createStudent(req, res, next) {
   }
 }
 
+async function deleteStudents(req, res) {
+  try {
+    const id = req.params.id;
+    const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET);
+    const deletedStudent = await Student.findByIdAndDelete(id);
+    return res.status(204).json(deletedStudent);
+  } catch (error) {
+    console.log(error);
+  }
+}
 // async function getPersonsByDate(req, res) {
 //   try {
 //     const { dateVisited } = req.params;
@@ -162,6 +176,7 @@ export default {
   getStudents,
   // getPerson,
   createStudent,
+  deleteStudents,
   // getPersonsByDate,
   // getPersonsByPurpose,
   // getPersonByFirstName,
