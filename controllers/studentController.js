@@ -6,18 +6,27 @@ import getTokenFrom from "../utils/getTokenFrom.js";
 import jwt from "jsonwebtoken";
 import config from "../utils/config.js";
 import Student from "../models/Student.js";
-import uploadFile from "../utils/uploadFile.js";
+// import uploadFile from "../utils/uploadFile.js";
+
+// async function getStudents(req, res) {
+//   const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET);
+//   const students = await Student.find([]);
+
+//   return res.json(students);
+// }
 
 async function getStudents(req, res) {
   const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET);
-  const students = await Student.find([]);
+  const students = await Student.find({ user: decodedToken._id });
 
   return res.json(students);
 }
+
 // async function getStudents(req, res) {
 //   const students = await Student.find({});
 //   return res.json(students);
 // }
+
 // async function getPerson(req, res, next) {
 //   try {
 //     const { id } = req.params;
@@ -63,7 +72,7 @@ async function createStudent(req, res, next) {
     const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET, {});
     //3. we check if the token is valid
     const teacher = await Educator.findById(decodedToken.id);
-    const photoInfo = await uploadFile(req.file);
+    // const photoInfo = await uploadFile(req.file);
 
     //4. we convert the date
     // const currentDate = new Date();
@@ -75,7 +84,7 @@ async function createStudent(req, res, next) {
       lastName,
 
       teacher: teacher._id,
-      photoInfo,
+      // photoInfo,
     });
     //6. we handle missing data
     if (!firstName || !lastName) {

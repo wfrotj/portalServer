@@ -5,10 +5,10 @@ const studentSchema = mongoose.Schema({
   lastName: String,
   //   middleInitial: String,
   user: String,
-  photoInfo: {
-    url: String,
-    filename: String,
-  },
+  // photoInfo: {
+  //   url: String,
+  //   filename: String,
+  // },
 });
 
 studentSchema.set("toJSON", {
