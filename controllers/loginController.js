@@ -24,7 +24,7 @@ async function login(req, res) {
     id: teacher._id,
   };
 
-  const token = jwt.sign(teacherForToken, config.SECRET);
+  const token = jwt.sign(teacherForToken, config.SECRET, { expiresIn: "60s" });
 
   res.status(200).send({
     token,
