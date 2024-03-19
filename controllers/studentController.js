@@ -67,7 +67,7 @@ async function getStudents(req, res) {
 async function createStudent(req, res, next) {
   try {
     //1. get the needed data
-    const { firstName, lastName } = req.body;
+    const { firstName, lastName, section } = req.body;
     //2. we decode the token
     const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET, {});
     //3. we check if the token is valid
@@ -82,7 +82,7 @@ async function createStudent(req, res, next) {
     const student = new Student({
       firstName,
       lastName,
-
+      section,
       teacher: teacher._id,
       // photoInfo,
     });

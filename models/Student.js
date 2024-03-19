@@ -9,6 +9,7 @@ const studentSchema = mongoose.Schema({
   //   url: String,
   //   filename: String,
   // },
+  section: String,
 });
 
 studentSchema.set("toJSON", {
